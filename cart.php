@@ -1,7 +1,7 @@
 <?php
-
 require_once "header.php";
-require_once "./includes/books.inc.php";
+require_once "./includes/getCartBooks.inc.php";
+
 ?>
     <div class="container-fluid  py-5 home-bac">
         <h1 class='container'>
@@ -30,13 +30,11 @@ require_once "./includes/books.inc.php";
 if (isset($_SESSION['cart'])) {
     $cartItems = $_SESSION['cart'];
     $subtotal = 0;
-    foreach ($cartItems as $key => $value) {
-        foreach ($data as $index => $books) {
-            if ($value['id'] == $books['b_id']) {
-                //echo "{$books['b_id']} <br>";
-                $total = $value['quantity'] * $books['b_price'];
-                $subtotal += $total;
-                echo "
+
+    foreach ($result as $index => $books) {
+        $total = $value['quantity'] * $books['b_price'];
+        $subtotal += $total;
+        echo "
                     <section id='cart'>
                         <div class='row text-center py-2 d-flex align-items-center gap-lg-0 gap-3'>
                             <div class='col-lg-3'>
@@ -64,9 +62,9 @@ if (isset($_SESSION['cart'])) {
                         <hr />
                     </section>
                 ";
-            }
-        }
+
     }
+
     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
         echo "
             <div class='d-flex justify-content-center'>
